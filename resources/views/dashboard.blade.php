@@ -6,7 +6,6 @@
 
     <div class="page-header">
         <h3 class="page-title">Dashboard</h3>
-
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item active">Dashboard</li>
@@ -15,17 +14,14 @@
     </div>
 
     <div class="row">
-
         <div class="col-md-6 col-xl-3 grid-margin stretch-card">
             <div class="card bg-primary text-white shadow-sm">
                 <div class="card-body d-flex justify-content-between align-items-center">
                     <div>
                         <h6>Total Hotel</h6>
-                        <h2 class="mb-0">10</h2>
+                        <h2 class="mb-0">{{ $totalHotel }}</h2>
                     </div>
-
                     <i class="mdi mdi-office-building mdi-48px"></i>
-
                 </div>
             </div>
         </div>
@@ -35,11 +31,9 @@
                 <div class="card-body d-flex justify-content-between align-items-center">
                     <div>
                         <h6>Total Kamar</h6>
-                        <h2 class="mb-0">150</h2>
+                        <h2 class="mb-0">{{ $totalKamar }}</h2>
                     </div>
-
                     <i class="mdi mdi-door mdi-48px"></i>
-
                 </div>
             </div>
         </div>
@@ -49,11 +43,9 @@
                 <div class="card-body d-flex justify-content-between align-items-center">
                     <div>
                         <h6>Total Survei</h6>
-                        <h2 class="mb-0">75</h2>
+                        <h2 class="mb-0">{{ $totalSurvei }}</h2>
                     </div>
-
                     <i class="mdi mdi-clipboard-text mdi-48px"></i>
-
                 </div>
             </div>
         </div>
@@ -63,23 +55,17 @@
                 <div class="card-body d-flex justify-content-between align-items-center">
                     <div>
                         <h6>Total Pengguna</h6>
-                        <h2 class="mb-0">5</h2>
+                        <h2 class="mb-0">{{ $totalPengguna }}</h2>
                     </div>
-
                     <i class="mdi mdi-account-group mdi-48px"></i>
-
                 </div>
             </div>
         </div>
-
     </div>
 
     <div class="row">
-
         <div class="col-lg-8 grid-margin stretch-card">
-
             <div class="card">
-
                 <div class="card-body">
 
                     <h4 class="card-title">
@@ -88,13 +74,11 @@
 
                     <p class="text-muted">
                         Selamat datang di aplikasi
-                        <strong>Survei Pemesanan Hotel</strong>.
+                        <strong>Survei Pemesanan Hotel</strong>, {{ auth()->user()->name }}.
                     </p>
 
                     <hr>
-
                     <div class="row text-center mt-4">
-
                         <div class="col-md-4 mb-3">
                             <a href="{{ url('/hotel') }}" class="text-decoration-none text-dark">
                                 <div class="border rounded p-4 h-100 shadow-sm">
@@ -103,7 +87,6 @@
                                     <h6 class="mt-3 mb-1 fw-bold">
                                         Data Hotel
                                     </h6>
-
                                     <small class="text-muted">
                                         Kelola data hotel
                                     </small>
@@ -119,7 +102,6 @@
                                     <h6 class="mt-3 mb-1 fw-bold">
                                         Data Kamar
                                     </h6>
-
                                     <small class="text-muted">
                                         Kelola data kamar
                                     </small>
@@ -135,70 +117,40 @@
                                     <h6 class="mt-3 mb-1 fw-bold">
                                         Form Survei
                                     </h6>
-
                                     <small class="text-muted">
                                         Kelola survei pelanggan
                                     </small>
                                 </div>
                             </a>
                         </div>
-
                     </div>
-
                 </div>
-
             </div>
-
         </div>
 
         <div class="col-lg-4 grid-margin stretch-card">
-
             <div class="card">
-
                 <div class="card-body">
-
                     <h4 class="card-title">
                         Aktivitas Terbaru
                     </h4>
-
                     <ul class="list-group">
-
-                        <li class="list-group-item d-flex justify-content-between">
-                            Data Hotel
-                            <span class="badge badge-success">
-                                Baru
-                            </span>
-                        </li>
-
-                        <li class="list-group-item d-flex justify-content-between">
-                            Data Kamar
-                            <span class="badge badge-primary">
-                                Update
-                            </span>
-                        </li>
-
-                        <li class="list-group-item d-flex justify-content-between">
-                            Form Survei
-                            <span class="badge badge-warning">
-                                Pending
-                            </span>
-                        </li>
-
-                        <li class="list-group-item d-flex justify-content-between">
-                            Data Pengguna
-                            <span class="badge badge-info">
-                                Aktif
-                            </span>
-                        </li>
+                        @forelse ($aktivitas as $item)
+                            <li class="list-group-item d-flex justify-content-between">
+                                {{ $item['label'] }}
+                                <span class="badge badge-{{ $item['color'] }}">
+                                    {{ $item['badge'] }}
+                                </span>
+                            </li>
+                        @empty
+                            <li class="list-group-item text-muted text-center">
+                                Belum ada aktivitas.
+                            </li>
+                        @endforelse
 
                     </ul>
-
                 </div>
-
             </div>
-
         </div>
-
     </div>
-
 @endsection

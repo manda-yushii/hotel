@@ -34,22 +34,42 @@
                                     Silakan masukkan email dan password Anda.
                                 </p>
                             </div>
-                            <form>
+
+                            @if (session('success'))
+                                <div class="alert alert-success">
+                                    {{ session('success') }}
+                                </div>
+                            @endif
+
+                            @if ($errors->any())
+                                <div class="alert alert-danger">
+                                    <ul class="mb-0">
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
+
+                            <form action="{{ route('login.attempt') }}" method="POST">
+                                @csrf
                                 <div class="mb-3">
                                     <label class="form-label">
                                         Email
                                     </label>
-                                    <input type="email" class="form-control" placeholder="Masukkan Email">
+                                    <input type="email" name="email" class="form-control" placeholder="Masukkan Email"
+                                        value="{{ old('email') }}" required>
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">
                                         Password
                                     </label>
-                                    <input type="password" class="form-control" placeholder="Masukkan Password">
+                                    <input type="password" name="password" class="form-control"
+                                        placeholder="Masukkan Password" required>
                                 </div>
                                 <div class="d-flex justify-content-between align-items-center mb-4">
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="remember">
+                                        <input class="form-check-input" type="checkbox" name="remember" id="remember">
                                         <label class="form-check-label" for="remember">
                                             Ingat Saya
                                         </label>
