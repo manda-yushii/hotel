@@ -1,13 +1,13 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-
-use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HotelController;
 use App\Http\Controllers\KamarController;
 use App\Http\Controllers\PenggunaController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SurveiController;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -94,8 +94,9 @@ Route::middleware('auth')->group(function () {
     Route::delete('/pengguna/{user}', [PenggunaController::class, 'destroy'])
         ->name('pengguna.destroy');
 
-    Route::get('/profile', function () {
-        return view('profile');
-    })->name('profile');
+    Route::get('/profile', [ProfileController::class, 'index'])
+        ->name('profile');
+    Route::put('/profile', [ProfileController::class, 'update'])
+    ->name('profile.update');
 
 });
