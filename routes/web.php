@@ -5,6 +5,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HotelController;
 use App\Http\Controllers\KamarController;
 use App\Http\Controllers\PenggunaController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SurveiController;
 use Illuminate\Support\Facades\Route;
@@ -34,15 +35,12 @@ Route::view('/contact', 'user.contact')->name('user.contact');
 */
 
 Route::view('/login', 'auth.login')->name('login');
-Route::post('/login', [AuthController::class, 'login'])
-    ->name('login.attempt');
+Route::post('/login', [AuthController::class, 'login'])->name('login.attempt');
 
 Route::view('/register', 'auth.register')->name('register');
-Route::post('/register', [AuthController::class, 'register'])
-    ->name('register.attempt');
+Route::post('/register', [AuthController::class, 'register'])->name('register.attempt');
 
-Route::post('/logout', [AuthController::class, 'logout'])
-    ->name('logout');
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 /*
 |--------------------------------------------------------------------------
@@ -51,52 +49,35 @@ Route::post('/logout', [AuthController::class, 'logout'])
 */
 
 Route::middleware('auth')->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-    Route::get('/dashboard', [DashboardController::class, 'index'])
-        ->name('dashboard');
+    Route::get('/hotel', [HotelController::class, 'index'])->name('hotel.index');
+    Route::post('/hotel', [HotelController::class, 'store'])->name('hotel.store');
+    Route::put('/hotel/{hotel}', [HotelController::class, 'update'])->name('hotel.update');
+    Route::delete('/hotel/{hotel}', [HotelController::class, 'destroy'])->name('hotel.destroy');
 
-    Route::get('/hotel', [HotelController::class, 'index'])
-        ->name('hotel.index');
-    Route::post('/hotel', [HotelController::class, 'store'])
-        ->name('hotel.store');
-    Route::put('/hotel/{hotel}', [HotelController::class, 'update'])
-        ->name('hotel.update');
-    Route::delete('/hotel/{hotel}', [HotelController::class, 'destroy'])
-        ->name('hotel.destroy');
+    Route::get('/kamar', [KamarController::class, 'index'])->name('kamar.index');
+    Route::post('/kamar', [KamarController::class, 'store'])->name('kamar.store');
+    Route::put('/kamar/{kamar}', [KamarController::class, 'update'])->name('kamar.update');
+    Route::delete('/kamar/{kamar}', [KamarController::class, 'destroy'])->name('kamar.destroy');
 
-    Route::get('/kamar', [KamarController::class, 'index'])
-        ->name('kamar.index');
-    Route::post('/kamar', [KamarController::class, 'store'])
-        ->name('kamar.store');
-    Route::put('/kamar/{kamar}', [KamarController::class, 'update'])
-        ->name('kamar.update');
-    Route::delete('/kamar/{kamar}', [KamarController::class, 'destroy'])
-        ->name('kamar.destroy');
+    Route::get('/survei', [SurveiController::class, 'create'])->name('survei.create');
+    Route::post('/survei', [SurveiController::class, 'store'])->name('survei.store');
 
-    Route::get('/survei', [SurveiController::class, 'create'])
-        ->name('survei.create');
-    Route::post('/survei', [SurveiController::class, 'store'])
-        ->name('survei.store');
+    Route::get('/hasil', [SurveiController::class, 'index'])->name('hasil.index');
+    Route::put('/hasil/{survei}', [SurveiController::class, 'update'])->name('hasil.update');
+    Route::delete('/hasil/{survei}', [SurveiController::class, 'destroy'])->name('hasil.destroy');
 
-    Route::get('/hasil', [SurveiController::class, 'index'])
-        ->name('hasil.index');
-    Route::put('/hasil/{survei}', [SurveiController::class, 'update'])
-        ->name('hasil.update');
-    Route::delete('/hasil/{survei}', [SurveiController::class, 'destroy'])
-        ->name('hasil.destroy');
+    Route::get('/pengguna', [PenggunaController::class, 'index'])->name('pengguna.index');
+    Route::post('/pengguna', [PenggunaController::class, 'store'])->name('pengguna.store');
+    Route::put('/pengguna/{user}', [PenggunaController::class, 'update'])->name('pengguna.update');
+    Route::delete('/pengguna/{user}', [PenggunaController::class, 'destroy'])->name('pengguna.destroy');
 
-    Route::get('/pengguna', [PenggunaController::class, 'index'])
-        ->name('pengguna.index');
-    Route::post('/pengguna', [PenggunaController::class, 'store'])
-        ->name('pengguna.store');
-    Route::put('/pengguna/{user}', [PenggunaController::class, 'update'])
-        ->name('pengguna.update');
-    Route::delete('/pengguna/{user}', [PenggunaController::class, 'destroy'])
-        ->name('pengguna.destroy');
+    Route::get('/peran', [RoleController::class, 'index'])->name('peran.index');
+    Route::post('/peran', [RoleController::class, 'store'])->name('peran.store');
+    Route::put('/peran/{role}', [RoleController::class, 'update'])->name('peran.update');
+    Route::delete('/peran/{role}', [RoleController::class, 'destroy'])->name('peran.destroy');
 
-    Route::get('/profile', [ProfileController::class, 'index'])
-        ->name('profile');
-    Route::put('/profile', [ProfileController::class, 'update'])
-    ->name('profile.update');
-
+    Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
+    Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
 });
