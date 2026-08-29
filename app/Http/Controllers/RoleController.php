@@ -11,7 +11,7 @@ class RoleController extends Controller
     {
         $roles = Role::latest()->get();
 
-        return view('peran', compact('roles'));
+        return view('pengguna', compact('roles'));
     }
 
     public function store(Request $request)
@@ -25,7 +25,7 @@ class RoleController extends Controller
         Role::create($data);
 
         return redirect()
-            ->route('peran.index')
+            ->route('pengguna.index')
             ->with('success', 'Peran pengguna berhasil ditambahkan');
     }
 
@@ -40,7 +40,7 @@ class RoleController extends Controller
         $role->update($data);
 
         return redirect()
-            ->route('peran.index')
+            ->route('pengguna.index')
             ->with('success', 'Peran pengguna berhasil diperbarui');
     }
 
@@ -49,7 +49,7 @@ class RoleController extends Controller
         $role->delete();
 
         return redirect()
-            ->route('peran.index')
+            ->route('pengguna.index')
             ->with('success', 'Peran pengguna berhasil dihapus');
     }
 }
