@@ -105,6 +105,13 @@
                     </li>
 
                     <li class="nav-item">
+                        <a class="nav-link {{ request()->is('peran*') ? 'active' : '' }}"
+                            href="{{ url('/peran') }}">
+                            Peran Pengguna
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
                         <a class="nav-link {{ request()->is('profile*') ? 'active' : '' }}"
                             href="{{ url('/profile') }}">
                             Profil

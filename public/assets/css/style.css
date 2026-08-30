@@ -21520,8 +21520,6 @@ code {
   height: 32px;
 }
 
-.img-xs
-
 .img-ss {
   width: 26px;
   height: 26px;
@@ -30382,92 +30380,3 @@ dl li {
   outline: 1px solid slategrey;
 }
 /*# sourceMappingURL=maps/style.css.map */
-/* ==========================================================
-   SurveiHotel Custom Style
-========================================================== */
-
-/* Card */
-.card{
-    border: none;
-    border-radius: 12px;
-    box-shadow: 0 3px 12px rgba(0,0,0,.08);
-    transition: .25s;
-}
-
-.card:hover{
-    transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(0,0,0,.12);
-}
-
-/* Button */
-.btn{
-    border-radius:8px;
-    transition:.2s;
-}
-
-.btn:hover{
-    transform:translateY(-2px);
-}
-
-/* Table */
-.table thead th{
-    font-weight:600;
-    vertical-align:middle;
-}
-
-.table tbody td{
-    vertical-align:middle;
-}
-
-/* Form */
-.form-control,
-.form-select{
-    border-radius:8px;
-}
-
-.form-control:focus,
-.form-select:focus{
-    box-shadow:none;
-    border-color:#4B49AC;
-}
-
-/* Badge */
-.badge{
-    border-radius:20px;
-    padding:6px 12px;
-}
-
-/* Sidebar */
-.sidebar .nav .nav-item .nav-link{
-    border-radius:8px;
-    margin:2px 8px;
-    transition:.2s;
-}
-
-.sidebar .nav .nav-item .nav-link:hover{
-    background:#ecebff;
-}
-
-.sidebar .nav .nav-item.active>.nav-link{
-    border-radius:8px;
-}
-
-/* Footer */
-.footer{
-    border-top:1px solid #e9ecef;
-}
-
-/* Page Header */
-.page-header{
-    margin-bottom:25px;
-}
-
-/* Card Title */
-.card-title{
-    font-weight:600;
-}
-
-/* Table Hover */
-.table-hover tbody tr:hover{
-    background:#f8f9fa;
-}

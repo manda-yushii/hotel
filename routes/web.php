@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
+
 /*
 |--------------------------------------------------------------------------
 | USER
@@ -50,6 +51,14 @@ use App\Http\Controllers\RoleController;
 
 Route::get('/pengguna', [RoleController::class, 'index'])
     ->name('pengguna.index');
+Route::get('/peran', [RoleController::class, 'index'])
+    ->name('peran.index');
+Route::post('/peran', [RoleController::class, 'store'])
+    ->name('peran.store');
+Route::put('/peran/{role}', [RoleController::class, 'update'])
+    ->name('peran.update');
+Route::delete('/peran/{role}', [RoleController::class, 'destroy'])
+    ->name('peran.destroy');
 
 Route::get('/profile', function () {
     return view('profile');
