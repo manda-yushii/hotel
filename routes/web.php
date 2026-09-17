@@ -6,6 +6,7 @@ use App\Http\Controllers\HotelController;
 use App\Http\Controllers\KamarController;
 use App\Http\Controllers\PenggunaController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SurveiController;
 use App\Models\Role;
 use Illuminate\Support\Facades\Route;
@@ -109,6 +110,15 @@ Route::middleware(['auth', 'role:Administrator,Petugas,Operator'])->group(functi
         ->name('pengguna.update');
     Route::delete('/pengguna/{user}', [PenggunaController::class, 'destroy'])
         ->name('pengguna.destroy');
+
+    Route::get('/peran', [RoleController::class, 'index'])
+        ->name('peran.index');
+    Route::post('/peran', [RoleController::class, 'store'])
+        ->name('peran.store');
+    Route::put('/peran/{role}', [RoleController::class, 'update'])
+        ->name('peran.update');
+    Route::delete('/peran/{role}', [RoleController::class, 'destroy'])
+        ->name('peran.destroy');
 
 });
 
