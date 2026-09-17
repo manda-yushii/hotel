@@ -40,13 +40,13 @@ class AuthController extends Controller
 
         $user = User::where('email', $credentials['email'])->first();
 
-        if ($user && !$user->status) {
+        if ($user && ! $user->status) {
             throw ValidationException::withMessages([
                 'email' => 'Akun Anda nonaktif. Silakan hubungi administrator.',
             ]);
         }
 
-        if (!Auth::attempt($credentials, $request->boolean('remember'))) {
+        if (! Auth::attempt($credentials, $request->boolean('remember'))) {
             throw ValidationException::withMessages([
                 'email' => 'Email atau password yang Anda masukkan salah.',
             ]);
@@ -54,8 +54,12 @@ class AuthController extends Controller
 
         $request->session()->regenerate();
 
+        $tujuan = $user->role && $user->role->nama_peran === 'Kasir'
+            ? route('kasir')
+            : route('dashboard');
+
         return redirect()
-            ->intended(route('dashboard'))
+            ->intended($tujuan)
             ->with('success', 'Berhasil login');
     }
 
@@ -67,7 +71,7 @@ class AuthController extends Controller
         $request->session()->regenerateToken();
 
         return redirect()
-            ->route('login')
+            ->route('home')
             ->with('success', 'Berhasil logout');
     }
 }

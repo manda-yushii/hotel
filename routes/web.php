@@ -7,6 +7,7 @@ use App\Http\Controllers\KamarController;
 use App\Http\Controllers\PenggunaController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SurveiController;
+use App\Models\Role;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -46,11 +47,26 @@ Route::post('/logout', [AuthController::class, 'logout'])
 
 /*
 |--------------------------------------------------------------------------
-| ADMIN (wajib login)
+| PROFILE (semua role yang login boleh akses)
 |--------------------------------------------------------------------------
 */
 
 Route::middleware('auth')->group(function () {
+
+    Route::get('/profile', [ProfileController::class, 'index'])
+        ->name('profile');
+    Route::put('/profile', [ProfileController::class, 'update'])
+        ->name('profile.update');
+
+});
+
+/*
+|--------------------------------------------------------------------------
+| ADMIN (wajib login + role Administrator/Petugas/Operator)
+|--------------------------------------------------------------------------
+*/
+
+Route::middleware(['auth', 'role:Administrator,Petugas,Operator'])->group(function () {
 
     Route::get('/dashboard', [DashboardController::class, 'index'])
         ->name('dashboard');
@@ -94,9 +110,27 @@ Route::middleware('auth')->group(function () {
     Route::delete('/pengguna/{user}', [PenggunaController::class, 'destroy'])
         ->name('pengguna.destroy');
 
-    Route::get('/profile', [ProfileController::class, 'index'])
-        ->name('profile');
-    Route::put('/profile', [ProfileController::class, 'update'])
-    ->name('profile.update');
+});
+
+/*
+|--------------------------------------------------------------------------
+| KASIR (wajib login + role Kasir)
+|--------------------------------------------------------------------------
+*/
+
+Route::middleware(['auth', 'role:Kasir'])->group(function () {
+    Route::get('/kasir', function () {
+        return view('kasir', [
+            'kasirRole' => Role::where('nama_peran', 'Kasir')->first(),
+            'layanan' => [
+                ['id' => 1, 'nama' => 'Kamar Standard', 'kategori' => 'Kamar', 'harga' => 350000, 'icon' => 'mdi-bed'],
+                ['id' => 2, 'nama' => 'Kamar Deluxe', 'kategori' => 'Kamar', 'harga' => 500000, 'icon' => 'mdi-bed-king'],
+                ['id' => 3, 'nama' => 'Breakfast', 'kategori' => 'Tambahan', 'harga' => 100000, 'icon' => 'mdi-food-croissant'],
+                ['id' => 4, 'nama' => 'Laundry', 'kategori' => 'Tambahan', 'harga' => 50000, 'icon' => 'mdi-washing-machine'],
+                ['id' => 5, 'nama' => 'Extra Bed', 'kategori' => 'Tambahan', 'harga' => 150000, 'icon' => 'mdi-bunk-bed'],
+                ['id' => 6, 'nama' => 'Minuman', 'kategori' => 'Tambahan', 'harga' => 25000, 'icon' => 'mdi-cup'],
+            ],
+        ]);
+    })->name('kasir');
 
 });
