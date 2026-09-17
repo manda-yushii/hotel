@@ -12,7 +12,7 @@ class HotelController extends Controller
     {
         $hotels = Hotel::latest()->get();
 
-        return view('hotel', compact('hotels'));
+        return view('admin.hotel', compact('hotels'));
     }
 
     public function store(Request $request)

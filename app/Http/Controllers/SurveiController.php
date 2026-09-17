@@ -17,7 +17,7 @@ class SurveiController extends Controller
         $hotels = Hotel::orderBy('nama_hotel')->get();
         $kamar = Kamar::orderBy('nomor_kamar')->get();
 
-        return view('survei', compact('hotels', 'kamar'));
+        return view('admin.survei', compact('hotels', 'kamar'));
     }
 
     public function store(Request $request)
@@ -45,7 +45,7 @@ class SurveiController extends Controller
     {
         $survei = Survei::with(['hotel', 'kamar'])->latest()->get();
 
-        return view('hasil', compact('survei'));
+        return view('admin.hasil', compact('survei'));
     }
 
     public function update(Request $request, Survei $survei)

@@ -11,7 +11,7 @@ class ProfileController extends Controller
     {
         $user = auth()->user();
 
-        return view('profile', [
+        return view('admin.profile', [
             'user' => $user,
         ]);
     }

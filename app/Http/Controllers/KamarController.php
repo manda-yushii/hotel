@@ -13,7 +13,7 @@ class KamarController extends Controller
         $kamar = Kamar::with('hotel')->latest()->get();
         $hotels = Hotel::where('status', true)->orderBy('nama_hotel')->get();
 
-        return view('kamar', compact('kamar', 'hotels'));
+        return view('admin.kamar', compact('kamar', 'hotels'));
     }
 
     public function store(Request $request)

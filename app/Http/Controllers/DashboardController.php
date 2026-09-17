@@ -56,7 +56,7 @@ class DashboardController extends Controller
 
         $aktivitas = $aktivitas->sortByDesc('created_at')->take(4);
 
-        return view('dashboard', compact(
+        return view('admin.dashboard', compact(
             'totalHotel',
             'totalKamar',
             'totalSurvei',

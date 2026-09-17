@@ -15,7 +15,7 @@ class PenggunaController extends Controller
         $users = User::with('role')->latest()->get();
         $roles = Role::where('status', true)->orderBy('nama_peran')->get();
 
-        return view('pengguna', compact('users', 'roles'));
+        return view('admin.pengguna', compact('users', 'roles'));
     }
 
     public function store(Request $request)

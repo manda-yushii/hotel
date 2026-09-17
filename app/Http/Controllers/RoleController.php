@@ -11,7 +11,7 @@ class RoleController extends Controller
     {
         $roles = Role::latest()->get();
 
-        return view('peran', compact('roles'));
+        return view('admin.peran', compact('roles'));
     }
 
     public function store(Request $request)
