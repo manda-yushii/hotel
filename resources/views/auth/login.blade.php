@@ -64,8 +64,13 @@
                                     <label class="form-label">
                                         Password
                                     </label>
-                                    <input type="password" name="password" class="form-control"
-                                        placeholder="Masukkan Password" required>
+                                    <div class="input-group">
+                                        <input type="password" name="password" id="password" class="form-control"
+                                            placeholder="Masukkan Password" required>
+                                        <button type="button" class="btn btn-outline-secondary" id="togglePassword">
+                                            <i class="bi bi-eye" id="iconPassword"></i>
+                                        </button>
+                                    </div>
                                 </div>
                                 <div class="d-flex justify-content-between align-items-center mb-4">
                                     <div class="form-check">
@@ -99,3 +104,20 @@
         </div>
     </section>
 @endsection
+
+@push('scripts')
+    <script>
+        document.getElementById('togglePassword').addEventListener('click', function() {
+            const input = document.getElementById('password');
+            const icon = document.getElementById('iconPassword');
+
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.classList.replace('bi-eye', 'bi-eye-slash');
+            } else {
+                input.type = 'password';
+                icon.classList.replace('bi-eye-slash', 'bi-eye');
+            }
+        });
+    </script>
+@endpush

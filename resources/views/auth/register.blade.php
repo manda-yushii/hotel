@@ -66,15 +66,26 @@
                                     <label class="form-label">
                                         Password
                                     </label>
-                                    <input type="password" name="password" class="form-control"
-                                        placeholder="Masukkan Password" required>
+                                    <div class="input-group">
+                                        <input type="password" name="password" id="password" class="form-control"
+                                            placeholder="Masukkan Password" required>
+                                        <button type="button" class="btn btn-outline-secondary" id="togglePassword">
+                                            <i class="bi bi-eye" id="iconPassword"></i>
+                                        </button>
+                                    </div>
                                 </div>
                                 <div class="mb-4">
                                     <label class="form-label">
                                         Konfirmasi Password
                                     </label>
-                                    <input type="password" name="password_confirmation" class="form-control"
-                                        placeholder="Masukkan Ulang Password" required>
+                                    <div class="input-group">
+                                        <input type="password" name="password_confirmation" id="passwordConfirmation"
+                                            class="form-control" placeholder="Masukkan Ulang Password" required>
+                                        <button type="button" class="btn btn-outline-secondary"
+                                            id="togglePasswordConfirmation">
+                                            <i class="bi bi-eye" id="iconPasswordConfirmation"></i>
+                                        </button>
+                                    </div>
                                 </div>
                                 <div class="d-grid">
                                     <button type="submit" class="btn btn-success btn-lg rounded-pill">
@@ -86,8 +97,7 @@
                             <hr class="my-4">
                             <div class="text-center">
                                 Sudah punya akun?
-                                href="{{ route('login') }}"
-                                class="fw-bold text-decoration-none">
+                                <a href="{{ route('login') }}" class="fw-bold text-decoration-none">
                                 Login Sekarang
                                 </a>
                             </div>
@@ -98,3 +108,25 @@
         </div>
     </section>
 @endsection
+
+@push('scripts')
+    <script>
+        function pasangToggle(idInput, idTombol, idIcon) {
+            document.getElementById(idTombol).addEventListener('click', function() {
+                const input = document.getElementById(idInput);
+                const icon = document.getElementById(idIcon);
+
+                if (input.type === 'password') {
+                    input.type = 'text';
+                    icon.classList.replace('bi-eye', 'bi-eye-slash');
+                } else {
+                    input.type = 'password';
+                    icon.classList.replace('bi-eye-slash', 'bi-eye');
+                }
+            });
+        }
+
+        pasangToggle('password', 'togglePassword', 'iconPassword');
+        pasangToggle('passwordConfirmation', 'togglePasswordConfirmation', 'iconPasswordConfirmation');
+    </script>
+@endpush
