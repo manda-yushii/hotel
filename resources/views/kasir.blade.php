@@ -56,8 +56,11 @@
         }
 
         .keypad-wrap {
-            max-width: 170px;
+            max-width: 180px;
             margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 6px;
         }
 
         .keypad-btn {
@@ -153,9 +156,24 @@
 
 @section('content')
 
-    <div class="kasir-header">
-        <h4 class="fw-bold mb-0">Kasir Hotel</h4>
-        <p class="text-muted mb-0">Kelola transaksi dan pembayaran tamu</p>
+    <div class="kasir-header d-flex justify-content-between align-items-start">
+        <div>
+            <h4 class="fw-bold mb-0">Kasir Hotel</h4>
+            <p class="text-muted mb-0">Kelola transaksi dan pembayaran tamu</p>
+        </div>
+
+        <div class="text-end">
+            <p class="mb-1 small text-muted">
+                Login sebagai <strong>{{ auth()->user()->name }}</strong>
+            </p>
+            <form action="{{ route('logout') }}" method="POST" onsubmit="return confirm('Yakin ingin logout?')">
+                @csrf
+                <button type="submit" class="btn btn-outline-danger btn-sm">
+                    <i class="mdi mdi-logout"></i>
+                    Logout
+                </button>
+            </form>
+        </div>
     </div>
 
     <div class="row g-3" style="height: calc(100% - 70px);">
@@ -224,26 +242,17 @@
                     <label class="form-label mb-1 small">Uang Dibayar</label>
                     <input type="text" class="form-control text-end mb-2" id="labelBayar" value="Rp0" readonly>
 
-                    <div class="row g-1 keypad-wrap">
+                    <div class="keypad-wrap">
                         @foreach (['1', '2', '3', '4', '5', '6', '7', '8', '9'] as $angka)
-                            <div class="col-4">
-                                <button type="button" class="btn btn-outline-dark w-100 keypad-btn tombol-angka"
-                                    data-angka="{{ $angka }}">{{ $angka }}</button>
-                            </div>
+                            <button type="button" class="btn btn-outline-dark keypad-btn tombol-angka"
+                                data-angka="{{ $angka }}">{{ $angka }}</button>
                         @endforeach
-                        <div class="col-4">
-                            <button type="button" class="btn btn-outline-secondary w-100 keypad-btn" id="btnHapusAngka">
-                                <i class="mdi mdi-backspace-outline"></i>
-                            </button>
-                        </div>
-                        <div class="col-4">
-                            <button type="button" class="btn btn-outline-dark w-100 keypad-btn tombol-angka"
-                                data-angka="0">0</button>
-                        </div>
-                        <div class="col-4">
-                            <button type="button" class="btn btn-outline-secondary w-100 keypad-btn"
-                                id="btnClearAngka">C</button>
-                        </div>
+                        <button type="button" class="btn btn-outline-secondary keypad-btn" id="btnHapusAngka">
+                            <i class="mdi mdi-backspace-outline"></i>
+                        </button>
+                        <button type="button" class="btn btn-outline-dark keypad-btn tombol-angka"
+                            data-angka="0">0</button>
+                        <button type="button" class="btn btn-outline-secondary keypad-btn" id="btnClearAngka">C</button>
                     </div>
 
                     <hr class="my-2">
